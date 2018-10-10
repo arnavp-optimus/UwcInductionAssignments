@@ -15,9 +15,11 @@ BEGIN
 	DECLARE 
 	@DealStatus VARCHAR(50)
 
-	SELECT @DealStatus = STATUS_NAME from tblStatus join tblDispatch on tblStatus.STATUS_ID = tblDispatch.STATUS_ID
+	SELECT @DealStatus = STATUS_NAME from tblStatus join tblDispatch on tblStatus.STATUS_ID = tblDispatch.STATUS_ID 
+	WHERE TC_ID= @TcId
 
 	RETURN @DealStatus	
+
 END
 
 
