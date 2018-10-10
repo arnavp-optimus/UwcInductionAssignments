@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE FUNCTION [dbo].[UDF_GETDEALSTATUS] 
+ALTER FUNCTION [dbo].[UDF_GETDEALSTATUS] 
 (
 @TcId INT
 )
@@ -13,14 +13,11 @@ RETURNS VARCHAR(50)
 AS
 BEGIN	
 	DECLARE 
-	@StatusId INT,
 	@DealStatus VARCHAR(50)
 
-	SELECT @StatusId = (SELECT STATUS_ID FROM tblDispatch
-	WHERE TC_ID = @TcId)
-	
-	SELECT @DealStatus = (Select STATUS_NAME from tblStatus WHERE STATUS_ID = @StatusId)
+	SELECT @DealStatus = STATUS_NAME from tblStatus join tblDispatch on tblStatus.STATUS_ID = tblDispatch.STATUS_ID
 
 	RETURN @DealStatus	
 END
---select [dbo].[UDF_MyFunction](86159) AS Status
+
+
